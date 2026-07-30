@@ -1,0 +1,6 @@
+{
+  "name": "Code Review Tracker",
+  "description": "Tracks code review distributions (R1 and R2) across team members during sprint cycles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

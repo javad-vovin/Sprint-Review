@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#6366F1"
+        android:pathData="M48,0A48,48 0,1 1,0 48,48 48,0 0,1 48,0z"/>
+    <!-- Shoulders -->
+    <path
+        android:fillColor="#312E81"
+        android:pathData="M22,86 C22,66 34,60 48,60 C62,60 74,66 74,86 Z"/>
+    <!-- Neck -->
+    <path
+        android:fillColor="#FED7AA"
+        android:pathData="M42,50 L54,50 L54,62 L42,62 Z"/>
+    <!-- Face -->
+    <path
+        android:fillColor="#FFEDD5"
+        android:pathData="M48,20 C38,20 32,28 32,40 C32,50 38,56 48,56 C58,56 64,50 64,40 C64,28 58,20 48,20 Z"/>
+    <!-- Hair Spiky Tech -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M30,28 L34,16 L40,24 L48,12 L56,24 L62,16 L66,28 C60,22 52,22 48,24 C44,22 38,22 30,28 Z"/>
+    <!-- Modern Tech Glasses -->
+    <path
+        android:strokeColor="#6366F1"
+        android:strokeWidth="2"
+        android:fillColor="#000000"
+        android:pathData="M32,34 h13 v7 h-13 z M51,34 h13 v7 h-13 z"/>
+    <path
+        android:fillColor="#818CF8"
+        android:pathData="M34,36 h9 v3 h-9 z M53,36 h9 v3 h-9 z"/>
+    <!-- Smile -->
+    <path
+        android:strokeColor="#9A3412"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M43,48 Q48,52 53,48"/>
+</vector>

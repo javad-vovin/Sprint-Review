@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M48,0A48,48 0,1 1,0 48,48 48,0 0,1 48,0z"/>
+    <!-- Shoulders -->
+    <path
+        android:fillColor="#7F1D1D"
+        android:pathData="M22,86 C22,66 34,60 48,60 C62,60 74,66 74,86 Z"/>
+    <!-- Neck -->
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M42,50 L54,50 L54,62 L42,62 Z"/>
+    <!-- Face -->
+    <path
+        android:fillColor="#FFEDD5"
+        android:pathData="M48,22 C38,22 32,29 32,40 C32,50 38,56 48,56 C58,56 64,50 64,40 C64,29 58,22 48,22 Z"/>
+    <!-- Beanie Hat -->
+    <path
+        android:fillColor="#1E293B"
+        android:pathData="M30,26 C30,14 42,10 48,10 C54,10 66,14 66,26 Z"/>
+    <!-- Beanie Fold -->
+    <path
+        android:fillColor="#475569"
+        android:pathData="M28,24 h40 v8 h-40 z"/>
+    <!-- Eyes -->
+    <path
+        android:fillColor="#1E293B"
+        android:pathData="M38,38 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 M52,38 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"/>
+    <!-- Smile -->
+    <path
+        android:strokeColor="#9A3412"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M42,47 Q48,52 54,47"/>
+</vector>

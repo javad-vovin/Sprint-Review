@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M48,0A48,48 0,1 1,0 48,48 48,0 0,1 48,0z"/>
+    <!-- Shoulders / Jacket -->
+    <path
+        android:fillColor="#78350F"
+        android:pathData="M22,86 C22,66 34,60 48,60 C62,60 74,66 74,86 Z"/>
+    <!-- Shirt -->
+    <path
+        android:fillColor="#FEF3C7"
+        android:pathData="M42,60 L54,60 L51,74 L45,74 Z"/>
+    <!-- Neck -->
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M42,50 L54,50 L54,62 L42,62 Z"/>
+    <!-- Face -->
+    <path
+        android:fillColor="#FFEDD5"
+        android:pathData="M48,18 C37,18 31,26 31,38 C31,48 37,54 48,54 C59,54 65,48 65,38 C65,26 59,18 48,18 Z"/>
+    <!-- Hair Modern Pompadour -->
+    <path
+        android:fillColor="#1E293B"
+        android:pathData="M30,26 C30,14 42,10 52,12 C62,14 66,20 66,28 C60,22 52,20 48,22 C40,22 34,24 30,26 Z"/>
+    <!-- Beard Full -->
+    <path
+        android:fillColor="#1E293B"
+        android:pathData="M31,38 C31,56 40,62 48,62 C56,62 65,56 65,38 C65,42 56,58 48,58 C40,58 31,42 31,38 Z"/>
+    <!-- Glasses -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M33,32 h12 v8 h-12 z M51,32 h12 v8 h-12 z M45,35 h6 v2 h-6 z"/>
+    <!-- Glasses Lens -->
+    <path
+        android:fillColor="#FDE68A"
+        android:pathData="M35,34 h8 v4 h-8 z M53,34 h8 v4 h-8 z"/>
+    <!-- Smile -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M43,48 Q48,52 53,48"/>
+</vector>

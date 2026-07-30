@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#8B5CF6"
+        android:pathData="M48,0A48,48 0,1 1,0 48,48 48,0 0,1 48,0z"/>
+    <!-- Hair Bun -->
+    <path
+        android:fillColor="#451A03"
+        android:pathData="M48,6 A10,10 0,1,1 47.9,6 Z"/>
+    <!-- Shoulder Clothes -->
+    <path
+        android:fillColor="#4C1D95"
+        android:pathData="M22,86 C22,66 34,60 48,60 C62,60 74,66 74,86 Z"/>
+    <!-- Neck -->
+    <path
+        android:fillColor="#FED7AA"
+        android:pathData="M42,50 L54,50 L54,62 L42,62 Z"/>
+    <!-- Face -->
+    <path
+        android:fillColor="#FFEDD5"
+        android:pathData="M48,18 C38,18 32,26 32,38 C32,48 38,54 48,54 C58,54 64,48 64,38 C64,26 58,18 48,18 Z"/>
+    <!-- Hair Front -->
+    <path
+        android:fillColor="#78350F"
+        android:pathData="M32,26 C36,16 60,16 64,26 C58,22 52,22 48,24 C44,22 38,22 32,26 Z"/>
+    <!-- Stylish Round Glasses -->
+    <path
+        android:strokeColor="#1E293B"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M33,34 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 M51,34 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 M45,34 h6"/>
+    <!-- Smile -->
+    <path
+        android:strokeColor="#9A3412"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M43,45 Q48,49 53,45"/>
+</vector>

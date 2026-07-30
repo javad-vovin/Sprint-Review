@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M48,0A48,48 0,1 1,0 48,48 48,0 0,1 48,0z"/>
+    <!-- Shoulder / Body -->
+    <path
+        android:fillColor="#1E3A8A"
+        android:pathData="M22,86 C22,66 34,60 48,60 C62,60 74,66 74,86 Z"/>
+    <!-- Neck -->
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M42,50 L54,50 L54,62 L42,62 Z"/>
+    <!-- Head -->
+    <path
+        android:fillColor="#FFEDD5"
+        android:pathData="M48,18 C37,18 30,26 30,38 C30,50 37,56 48,56 C59,56 66,50 66,38 C66,26 59,18 48,18 Z"/>
+    <!-- Hair -->
+    <path
+        android:fillColor="#1E293B"
+        android:pathData="M30,32 C30,22 38,15 48,15 C58,15 66,22 66,32 C60,26 52,24 48,24 C40,24 34,28 30,32 Z"/>
+    <!-- Glasses Frame -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M33,36 h12 v8 h-12 z M51,36 h12 v8 h-12 z M45,39 h6 v2 h-6 z"/>
+    <!-- Glasses Lens Fill -->
+    <path
+        android:fillColor="#93C5FD"
+        android:pathData="M35,38 h8 v4 h-8 z M53,38 h8 v4 h-8 z"/>
+    <!-- Smile -->
+    <path
+        android:strokeColor="#9A3412"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M42,48 Q48,53 54,48"/>
+</vector>

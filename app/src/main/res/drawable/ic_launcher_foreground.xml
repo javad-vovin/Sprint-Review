@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Outer squircle badge / glass frame -->
+    <path
+        android:pathData="M32,24h44c6.6,0 12,5.4 12,12v36c0,6.6 -5.4,12 -12,12H32c-6.6,0 -12,-5.4 -12,-12V36c0,-6.6 5.4,-12 12,-12z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="20"
+                android:startY="24"
+                android:endX="88"
+                android:endY="84"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF4F46E5" />
+                <item android:offset="1.0" android:color="#FF0284C7" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner dark code panel -->
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M34,28h40c4.4,0 8,3.6 8,8v28c0,4.4 -3.6,8 -8,8H34c-4.4,0 -8,-3.6 -8,-8V36c0,-4.4 3.6,-8 8,-8z" />
+
+    <!-- Left Code Bracket < -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M39.5,44.5L34,50l5.5,5.5l-2.2,2.2l-7.7,-7.7l7.7,-7.7z" />
+
+    <!-- Right Code Bracket > -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M68.5,44.5l2.2,-2.2l7.7,7.7l-7.7,7.7l-2.2,-2.2l5.5,-5.5z" />
+
+    <!-- Forward Slash / -->
+    <path
+        android:fillColor="#94A3B8"
+        android:pathData="M56.5,42h2.8l-7.8,16h-2.8z" />
+
+    <!-- R1 Checkmark Badge (Emerald) -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M43,62l-3,-3l-1.8,1.8l4.8,4.8l9.6,-9.6l-1.8,-1.8z" />
+
+    <!-- R2 Checkmark Badge (Amber) -->
+    <path
+        android:fillColor="#F59E0B"
+        android:pathData="M57,62l-3,-3l-1.8,1.8l4.8,4.8l9.6,-9.6l-1.8,-1.8z" />
+</vector>
