@@ -63,11 +63,11 @@ abstract class AppDatabase : RoomDatabase() {
             val sprintId = sprintDao.insertSprint(sprint1)
 
             val initialMembers = listOf(
-                ReviewRecord(sprintId = sprintId, memberName = "Ali Ahmadi", avatarColorHex = "#38BDF8", r1Count = 5, r2Count = 3, totalReviews = 8),
-                ReviewRecord(sprintId = sprintId, memberName = "Sara Mohammadi", avatarColorHex = "#F43F5E", r1Count = 8, r2Count = 6, totalReviews = 14),
-                ReviewRecord(sprintId = sprintId, memberName = "Reza Hosseini", avatarColorHex = "#10B981", r1Count = 3, r2Count = 4, totalReviews = 7),
-                ReviewRecord(sprintId = sprintId, memberName = "Maryam Karimi", avatarColorHex = "#F59E0B", r1Count = 6, r2Count = 2, totalReviews = 8),
-                ReviewRecord(sprintId = sprintId, memberName = "Mehdi Nouri", avatarColorHex = "#8B5CF6", r1Count = 4, r2Count = 5, totalReviews = 9)
+                ReviewRecord(sprintId = sprintId, memberName = "Ali Ahmadi", avatarColorHex = "ic_avatar_male_dev1", r1Count = 5, r2Count = 3, totalReviews = 8),
+                ReviewRecord(sprintId = sprintId, memberName = "Sara Mohammadi", avatarColorHex = "ic_avatar_female_dev1", r1Count = 8, r2Count = 6, totalReviews = 14),
+                ReviewRecord(sprintId = sprintId, memberName = "Reza Hosseini", avatarColorHex = "ic_avatar_male_dev2", r1Count = 3, r2Count = 4, totalReviews = 7),
+                ReviewRecord(sprintId = sprintId, memberName = "Maryam Karimi", avatarColorHex = "ic_avatar_female_dev2", r1Count = 6, r2Count = 2, totalReviews = 8),
+                ReviewRecord(sprintId = sprintId, memberName = "Mehdi Nouri", avatarColorHex = "ic_avatar_tech_lead", r1Count = 4, r2Count = 5, totalReviews = 9)
             )
             reviewRecordDao.insertRecords(initialMembers)
         }

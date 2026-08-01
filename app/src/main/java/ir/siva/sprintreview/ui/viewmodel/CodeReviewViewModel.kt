@@ -28,6 +28,9 @@ data class SprintAnalytics(
     val totalCombined: Int = 0,
     val topReviewerName: String = "-",
     val avgReviewsPerMember: Float = 0f,
+    val avgR1PerMember: Float = 0f,
+    val avgR2PerMember: Float = 0f,
+    val teamMemberCount: Int = 0,
     val prevTotalR1: Int = 0,
     val prevTotalR2: Int = 0,
     val prevTotalCombined: Int = 0
@@ -93,20 +96,16 @@ class CodeReviewViewModel(
         ) { records, prevRecords ->
             val filtered = records.filter {
                 it.memberName.contains(ctx.filterCtx.query, ignoreCase = true)
-            }.let { list ->
-                when (ctx.filterCtx.sortFilter) {
-                    MemberSortFilter.DEFAULT -> list
-                    MemberSortFilter.HIGHEST_TOTAL -> list.sortedByDescending { it.totalReviews }
-                    MemberSortFilter.HIGHEST_R1 -> list.sortedByDescending { it.r1Count }
-                    MemberSortFilter.HIGHEST_R2 -> list.sortedByDescending { it.r2Count }
-                }
-            }
+            }.sortedBy { it.memberName.lowercase() }
 
             val totalR1 = records.sumOf { it.r1Count }
             val totalR2 = records.sumOf { it.r2Count }
             val totalCombined = totalR1 + totalR2
+            val memberCount = records.size
             val topReviewer = records.maxByOrNull { it.totalReviews }?.memberName ?: "-"
-            val avg = if (records.isNotEmpty()) totalCombined.toFloat() / records.size else 0f
+            val avgTotal = if (memberCount > 0) totalCombined.toFloat() / memberCount else 0f
+            val avgR1 = if (memberCount > 0) totalR1.toFloat() / memberCount else 0f
+            val avgR2 = if (memberCount > 0) totalR2.toFloat() / memberCount else 0f
 
             val prevTotalR1 = prevRecords.sumOf { it.r1Count }
             val prevTotalR2 = prevRecords.sumOf { it.r2Count }
@@ -117,7 +116,10 @@ class CodeReviewViewModel(
                 totalR2 = totalR2,
                 totalCombined = totalCombined,
                 topReviewerName = topReviewer,
-                avgReviewsPerMember = avg,
+                avgReviewsPerMember = avgTotal,
+                avgR1PerMember = avgR1,
+                avgR2PerMember = avgR2,
+                teamMemberCount = memberCount,
                 prevTotalR1 = prevTotalR1,
                 prevTotalR2 = prevTotalR2,
                 prevTotalCombined = prevTotalCombined

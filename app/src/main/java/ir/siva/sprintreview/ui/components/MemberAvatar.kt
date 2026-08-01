@@ -1,21 +1,51 @@
 package ir.siva.sprintreview.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ir.siva.sprintreview.R
+
+data class AvatarOption(
+    val id: String,
+    val title: String,
+    val drawableRes: Int
+)
+
+val AVATAR_OPTIONS = listOf(
+    AvatarOption("ic_avatar_male_dev1", "Male Dev 1", R.drawable.ic_avatar_male_dev1),
+    AvatarOption("ic_avatar_female_dev1", "Female Dev 1", R.drawable.ic_avatar_female_dev1),
+    AvatarOption("ic_avatar_male_dev2", "Male Dev 2", R.drawable.ic_avatar_male_dev2),
+    AvatarOption("ic_avatar_female_dev2", "Female Dev 2", R.drawable.ic_avatar_female_dev2),
+    AvatarOption("ic_avatar_mobile_dev", "Mobile Dev", R.drawable.ic_avatar_mobile_dev),
+    AvatarOption("ic_avatar_tech_lead", "Tech Lead", R.drawable.ic_avatar_tech_lead),
+    AvatarOption("ic_avatar_devops", "DevOps", R.drawable.ic_avatar_devops),
+    AvatarOption("ic_avatar_qa_engineer", "QA Engineer", R.drawable.ic_avatar_qa_engineer)
+)
+
+fun getAvatarDrawableRes(avatarKeyOrColor: String, memberName: String): Int {
+    val found = AVATAR_OPTIONS.find {
+        it.id.equals(avatarKeyOrColor, ignoreCase = true) ||
+        avatarKeyOrColor.contains(it.id, ignoreCase = true)
+    }
+    if (found != null) return found.drawableRes
+
+    val hash = kotlin.math.abs((memberName + avatarKeyOrColor).hashCode())
+    return AVATAR_OPTIONS[hash % AVATAR_OPTIONS.size].drawableRes
+}
 
 fun generateInitials(name: String): String {
     val parts = name.trim().split(" ")
@@ -40,32 +70,27 @@ fun MemberAvatar(
     memberName: String = "",
     name: String = memberName,
     avatarColorHex: String = "",
-    colorHex: String = if (avatarColorHex.isNotEmpty()) avatarColorHex else generateUniqueAvatarColor(name),
+    colorHex: String = avatarColorHex,
     size: Dp = 40.dp,
     fontSize: TextUnit = (size.value * 0.38).sp,
     modifier: Modifier = Modifier
 ) {
     val displayName = if (name.isNotEmpty()) name else memberName
-    val hex = if (colorHex.isNotEmpty()) colorHex else generateUniqueAvatarColor(displayName)
-
-    val color = try {
-        Color(android.graphics.Color.parseColor(hex))
-    } catch (e: Exception) {
-        MaterialTheme.colorScheme.primary
-    }
+    val key = if (avatarColorHex.isNotEmpty()) avatarColorHex else colorHex
+    val drawableRes = getAvatarDrawableRes(key, displayName)
 
     Box(
         modifier = modifier
             .size(size)
             .clip(CircleShape)
-            .background(color),
+            .background(MaterialTheme.colorScheme.surfaceVariant),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = generateInitials(displayName),
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontSize = fontSize
+        Image(
+            painter = painterResource(id = drawableRes),
+            contentDescription = displayName,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
     }
 }

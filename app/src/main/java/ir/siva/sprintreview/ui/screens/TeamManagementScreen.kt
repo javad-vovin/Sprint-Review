@@ -29,6 +29,9 @@ import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -97,11 +100,16 @@ fun TeamManagementScreen(
         ) {
             // Overview Summary Card
             item {
-                ElevatedCard(
+                Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("team_summary_card"),
-                    shape = RoundedCornerShape(16.dp)
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface
+                    ),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
                     Row(
                         modifier = Modifier
@@ -252,11 +260,16 @@ private fun TeamMemberManageRow(
     onDeleteClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    ElevatedCard(
+    Card(
         modifier = modifier
             .fillMaxWidth()
             .testTag("row_member_${record.id}"),
-        shape = RoundedCornerShape(14.dp)
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
             modifier = Modifier

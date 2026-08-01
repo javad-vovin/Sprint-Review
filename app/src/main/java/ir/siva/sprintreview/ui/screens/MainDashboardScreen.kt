@@ -70,10 +70,8 @@ import ir.siva.sprintreview.ui.components.MemberReviewCard
 import ir.siva.sprintreview.ui.components.ReviewBarChartCard
 import ir.siva.sprintreview.ui.components.SprintSelector
 import ir.siva.sprintreview.ui.components.SprintSettingsDialog
-import ir.siva.sprintreview.ui.components.SprintSummaryCard
 import ir.siva.sprintreview.ui.viewmodel.CodeReviewViewModel
 import ir.siva.sprintreview.ui.viewmodel.DashboardUiState
-import ir.siva.sprintreview.ui.viewmodel.MemberSortFilter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

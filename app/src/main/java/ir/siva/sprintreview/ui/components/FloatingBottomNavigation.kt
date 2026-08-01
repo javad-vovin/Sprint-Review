@@ -1,5 +1,6 @@
 package ir.siva.sprintreview.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -55,7 +56,8 @@ fun FloatingBottomNavigation(
             .padding(horizontal = 24.dp, vertical = 12.dp)
             .height(64.dp)
             .clip(RoundedCornerShape(32.dp)),
-        color = MaterialTheme.colorScheme.surfaceVariant,
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
         shadowElevation = 8.dp
     ) {
         Row(

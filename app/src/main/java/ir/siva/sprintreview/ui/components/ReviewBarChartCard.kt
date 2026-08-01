@@ -1,5 +1,6 @@
 package ir.siva.sprintreview.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,9 +10,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,37 +35,95 @@ fun ReviewBarChartCard(
     records: List<ReviewRecord>,
     modifier: Modifier = Modifier
 ) {
-    ElevatedCard(
+    val totalR1 = records.sumOf { it.r1Count }
+    val totalR2 = records.sumOf { it.r2Count }
+
+    Column(modifier = modifier) {
+        SingleReviewBarChartCard(
+            title = "R1 Reviews Distribution",
+            badgeText = "Total R1: $totalR1",
+            records = records,
+            countSelector = { it.r1Count },
+            barColor = Reviewer1Color
+        )
+        SingleReviewBarChartCard(
+            title = "R2 Reviews Distribution",
+            badgeText = "Total R2: $totalR2",
+            records = records,
+            countSelector = { it.r2Count },
+            barColor = Reviewer2Color
+        )
+    }
+}
+
+@Composable
+fun SingleReviewBarChartCard(
+    title: String,
+    badgeText: String,
+    records: List<ReviewRecord>,
+    countSelector: (ReviewRecord) -> Int,
+    barColor: Color,
+    modifier: Modifier = Modifier
+) {
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp)
+            .padding(horizontal = 16.dp, vertical = 6.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Review Distribution Chart",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Box(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .clip(CircleShape)
+                            .background(barColor)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Text(
+                    text = badgeText,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = barColor
+                )
+            }
             Spacer(modifier = Modifier.height(12.dp))
 
             if (records.isEmpty()) {
                 Text(
-                    text = "No review records available for chart",
+                    text = "No review records available",
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
-                val maxTotal = (records.maxOfOrNull { it.totalReviews } ?: 1).coerceAtLeast(1)
+                val maxCount = (records.maxOfOrNull { countSelector(it) } ?: 1).coerceAtLeast(1)
 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    records.take(6).forEach { record ->
+                    records.forEach { record ->
+                        val count = countSelector(record)
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(20.dp),
+                                .padding(vertical = 2.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
@@ -72,47 +134,31 @@ fun ReviewBarChartCard(
                                 modifier = Modifier.width(90.dp)
                             )
 
-                            val r1 = record.r1Count
-                            val r2 = record.r2Count
-                            val total = r1 + r2
-                            val remaining = (maxTotal - total).coerceAtLeast(0)
+                            val fraction = count.toFloat() / maxCount.toFloat()
 
-                            Row(
+                            Box(
                                 modifier = Modifier
                                     .weight(1f)
                                     .height(14.dp)
                                     .clip(RoundedCornerShape(7.dp))
-                                    .background(MaterialTheme.colorScheme.surfaceVariant),
-                                verticalAlignment = Alignment.CenterVertically
+                                    .background(MaterialTheme.colorScheme.surfaceVariant)
                             ) {
-                                if (r1 > 0) {
-                                    Box(
-                                        modifier = Modifier
-                                            .weight(r1.toFloat())
-                                            .height(14.dp)
-                                            .background(Reviewer1Color)
-                                    )
-                                }
-                                if (r2 > 0) {
-                                    Box(
-                                        modifier = Modifier
-                                            .weight(r2.toFloat())
-                                            .height(14.dp)
-                                            .background(Reviewer2Color)
-                                    )
-                                }
-                                if (remaining > 0) {
+                                if (count > 0) {
                                     Spacer(
-                                        modifier = Modifier.weight(remaining.toFloat())
+                                        modifier = Modifier
+                                            .fillMaxWidth(fraction)
+                                            .height(14.dp)
+                                            .clip(RoundedCornerShape(7.dp))
+                                            .background(barColor)
                                     )
                                 }
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "$r1/$r2",
-                                fontSize = 10.sp,
+                                text = "$count",
+                                fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.width(36.dp)
+                                modifier = Modifier.width(28.dp)
                             )
                         }
                     }

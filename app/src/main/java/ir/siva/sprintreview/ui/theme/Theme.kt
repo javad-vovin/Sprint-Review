@@ -23,25 +23,35 @@ enum class ThemeMode {
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryBlue,
     secondary = SecondaryIndigo,
-    background = DarkBackground,
+    background = Color(0xFF090D16),
     surface = DarkSurface,
     surfaceVariant = DarkSurfaceVariant,
     onPrimary = Color.White,
     onSecondary = Color.White,
-    onBackground = Color.White,
-    onSurface = Color.White
+    onBackground = Color(0xFFF8FAFC),
+    onSurface = Color(0xFFF8FAFC),
+    onSurfaceVariant = Color(0xFF94A3B8),
+    outline = Color(0xFF475569),
+    outlineVariant = Color(0xFF334155),
+    primaryContainer = Color(0xFF0284C7).copy(alpha = 0.25f),
+    onPrimaryContainer = Color(0xFF38BDF8)
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = PrimaryBlue,
     secondary = SecondaryIndigo,
-    background = LightBackground,
+    background = Color(0xFFF1F5F9),
     surface = LightSurface,
     surfaceVariant = LightSurfaceVariant,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onBackground = Color(0xFF0F172A),
-    onSurface = Color(0xFF0F172A)
+    onSurface = Color(0xFF0F172A),
+    onSurfaceVariant = Color(0xFF64748B),
+    outline = Color(0xFFCBD5E1),
+    outlineVariant = Color(0xFFE2E8F0),
+    primaryContainer = Color(0xFFE0F2FE),
+    onPrimaryContainer = Color(0xFF0369A1)
 )
 
 @Composable
@@ -52,7 +62,7 @@ fun SprintReviewTheme(
         ThemeMode.LIGHT -> false
         ThemeMode.DARK -> true
     },
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

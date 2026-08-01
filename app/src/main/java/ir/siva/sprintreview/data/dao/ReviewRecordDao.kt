@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ReviewRecordDao {
-    @Query("SELECT * FROM review_records WHERE sprintId = :sprintId ORDER BY totalReviews DESC, memberName ASC")
+    @Query("SELECT * FROM review_records WHERE sprintId = :sprintId ORDER BY memberName ASC")
     fun getRecordsForSprint(sprintId: Long): Flow<List<ReviewRecord>>
 
     @Query("SELECT * FROM review_records WHERE id = :recordId")

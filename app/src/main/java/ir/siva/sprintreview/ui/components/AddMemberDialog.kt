@@ -1,16 +1,16 @@
 package ir.siva.sprintreview.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -29,24 +29,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-val AVATAR_COLORS = listOf(
-    "#38BDF8", "#F43F5E", "#10B981", "#F59E0B", "#8B5CF6",
-    "#EC4899", "#06B6D4", "#84CC16", "#6366F1", "#14B8A6"
-)
-
 @Composable
 fun AddMemberDialog(
     onDismiss: () -> Unit,
-    onConfirm: (name: String, colorHex: String) -> Unit
+    onConfirm: (name: String, avatarId: String) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
-    var selectedColor by remember { mutableStateOf(AVATAR_COLORS[0]) }
+    var selectedAvatarId by remember { mutableStateOf(AVATAR_OPTIONS[0].id) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -64,24 +59,34 @@ fun AddMemberDialog(
                         .fillMaxWidth()
                         .testTag("input_member_name")
                 )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text("Select Avatar Color", fontSize = 12.sp, fontWeight = FontWeight.Medium)
-                Spacer(modifier = Modifier.height(6.dp))
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    items(AVATAR_COLORS) { colorHex ->
-                        val color = try { Color(android.graphics.Color.parseColor(colorHex)) } catch (e: Exception) { Color.Blue }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text("Select Avatar", fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    items(AVATAR_OPTIONS) { option ->
+                        val isSelected = selectedAvatarId == option.id
                         Box(
                             modifier = Modifier
-                                .size(32.dp)
+                                .size(48.dp)
                                 .clip(CircleShape)
-                                .background(color)
+                                .background(
+                                    if (isSelected) MaterialTheme.colorScheme.primaryContainer
+                                    else MaterialTheme.colorScheme.surfaceVariant
+                                )
                                 .border(
-                                    width = if (selectedColor == colorHex) 3.dp else 0.dp,
-                                    color = MaterialTheme.colorScheme.onSurface,
+                                    width = if (isSelected) 3.dp else 0.dp,
+                                    color = MaterialTheme.colorScheme.primary,
                                     shape = CircleShape
                                 )
-                                .clickable { selectedColor = colorHex }
-                        )
+                                .clickable { selectedAvatarId = option.id },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = option.drawableRes),
+                                contentDescription = option.title,
+                                modifier = Modifier.fillMaxSize()
+                            )
+                        }
                     }
                 }
             }
@@ -90,7 +95,7 @@ fun AddMemberDialog(
             Button(
                 onClick = {
                     if (name.isNotBlank()) {
-                        onConfirm(name.trim(), selectedColor)
+                        onConfirm(name.trim(), selectedAvatarId)
                         onDismiss()
                     }
                 },
