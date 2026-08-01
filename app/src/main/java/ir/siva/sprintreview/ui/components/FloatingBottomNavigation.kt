@@ -2,6 +2,7 @@ package ir.siva.sprintreview.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
@@ -50,16 +52,26 @@ fun FloatingBottomNavigation(
         NavItem.Settings
     )
 
-    Surface(
+    val shape = RoundedCornerShape(32.dp)
+    Box(
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 12.dp)
             .height(64.dp)
-            .clip(RoundedCornerShape(32.dp)),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-        shadowElevation = 8.dp
+            .clip(shape)
     ) {
+        // Frosted blur glass background
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .blur(16.dp)
+                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.75f))
+        )
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .border(BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)), shape)
+        )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,

@@ -90,6 +90,7 @@ fun MainDashboardScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        containerColor = Color.Transparent,
         contentWindowInsets = WindowInsets.systemBars
     ) { innerPadding ->
         if (uiState.isLoading) {

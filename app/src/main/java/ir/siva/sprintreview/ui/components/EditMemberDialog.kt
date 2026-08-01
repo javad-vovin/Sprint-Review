@@ -66,7 +66,7 @@ fun EditMemberDialog(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Select Avatar", fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                Text("Select Avatar", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(8.dp))
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     items(AVATAR_OPTIONS) { option ->

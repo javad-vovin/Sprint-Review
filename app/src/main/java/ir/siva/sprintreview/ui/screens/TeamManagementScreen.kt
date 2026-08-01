@@ -39,6 +39,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -58,6 +59,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ir.siva.sprintreview.ui.components.FrostedBlurCard
 import ir.siva.sprintreview.data.model.ReviewRecord
 import ir.siva.sprintreview.ui.components.AddMemberDialog
 import ir.siva.sprintreview.ui.components.EditMemberDialog
@@ -86,6 +88,7 @@ fun TeamManagementScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        containerColor = Color.Transparent,
         contentWindowInsets = WindowInsets.systemBars
     ) { paddingValues ->
         LazyColumn(
@@ -100,16 +103,10 @@ fun TeamManagementScreen(
         ) {
             // Overview Summary Card
             item {
-                Card(
+                FrostedBlurCard(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .testTag("team_summary_card"),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                        .testTag("team_summary_card")
                 ) {
                     Row(
                         modifier = Modifier
@@ -138,7 +135,8 @@ fun TeamManagementScreen(
                             Text(
                                 text = "${uiState.records.size} Team Members",
                                 style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
                                 text = "Active reviewers in ${uiState.selectedSprint?.name ?: "Current Sprint"}",
@@ -171,7 +169,7 @@ fun TeamManagementScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .testTag("input_search_team"),
-                    placeholder = { Text("Search member name...") },
+                    placeholder = { Text("Search member name...", color = MaterialTheme.colorScheme.onSurfaceVariant) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -180,7 +178,15 @@ fun TeamManagementScreen(
                         )
                     },
                     singleLine = true,
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        focusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.4f),
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f),
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
+                    )
                 )
             }
 
@@ -260,16 +266,10 @@ private fun TeamMemberManageRow(
     onDeleteClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    FrostedBlurCard(
         modifier = modifier
             .fillMaxWidth()
-            .testTag("row_member_${record.id}"),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            .testTag("row_member_${record.id}")
     ) {
         Row(
             modifier = Modifier
@@ -292,7 +292,8 @@ private fun TeamMemberManageRow(
                 Text(
                     text = record.memberName,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {

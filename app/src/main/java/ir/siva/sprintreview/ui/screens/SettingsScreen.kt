@@ -31,6 +31,7 @@ import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.PostAdd
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Settings
+import ir.siva.sprintreview.ui.components.FrostedBlurCard
 import ir.siva.sprintreview.ui.theme.ThemeMode
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.material3.Button
@@ -45,6 +46,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -98,6 +100,7 @@ fun SettingsScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        containerColor = Color.Transparent,
         contentWindowInsets = WindowInsets.systemBars
     ) { paddingValues ->
         LazyColumn(
@@ -114,14 +117,8 @@ fun SettingsScreen(
 
             // Sprint Customization Card
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                FrostedBlurCard(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
                         modifier = Modifier
@@ -148,7 +145,8 @@ fun SettingsScreen(
                                 Text(
                                     text = "Sprint Name",
                                     style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
                                     text = "Rename current active sprint",
@@ -174,8 +172,16 @@ fun SettingsScreen(
                                     .weight(1f)
                                     .testTag("input_settings_sprint_name"),
                                 singleLine = true,
-                                placeholder = { Text("Sprint Name e.g. Sprint 14") },
-                                shape = RoundedCornerShape(12.dp)
+                                placeholder = { Text("Sprint Name e.g. Sprint 14", color = MaterialTheme.colorScheme.onSurfaceVariant) },
+                                shape = RoundedCornerShape(12.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    focusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.4f),
+                                    unfocusedContainerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.2f),
+                                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
+                                )
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Button(
@@ -209,14 +215,8 @@ fun SettingsScreen(
 
             // Sprint Schedule & Day Settings Card
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                FrostedBlurCard(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
                         modifier = Modifier
@@ -243,7 +243,8 @@ fun SettingsScreen(
                                 Text(
                                     text = "Sprint Cycle Settings",
                                     style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
                                     text = "Start day of week and cycle length",
@@ -259,7 +260,8 @@ fun SettingsScreen(
                         Text(
                             text = "Sprint Start Day:",
                             style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.height(6.dp))
 
@@ -276,8 +278,8 @@ fun SettingsScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(text = "Starts on $selectedStartDay")
-                                    Text(text = "▼", fontSize = 10.sp)
+                                    Text(text = "Starts on $selectedStartDay", color = MaterialTheme.colorScheme.onSurface)
+                                    Text(text = "▼", fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 }
                             }
 
@@ -295,6 +297,7 @@ fun SettingsScreen(
                                             ) {
                                                 Text(
                                                     text = day,
+                                                    color = MaterialTheme.colorScheme.onSurface,
                                                     fontWeight = if (day == selectedStartDay) FontWeight.Bold else FontWeight.Normal
                                                 )
                                                 if (day == selectedStartDay) {
@@ -323,7 +326,8 @@ fun SettingsScreen(
                         Text(
                             text = "Sprint Duration:",
                             style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.height(6.dp))
 
@@ -341,7 +345,7 @@ fun SettingsScreen(
                                     },
                                     shape = RoundedCornerShape(10.dp),
                                     color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-                                    contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(40.dp)
@@ -351,7 +355,8 @@ fun SettingsScreen(
                                         Text(
                                             text = "$weeks Wk${if (weeks > 1) "s" else ""}",
                                             fontWeight = FontWeight.Bold,
-                                            fontSize = 12.sp
+                                            fontSize = 12.sp,
+                                            color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface
                                         )
                                     }
                                 }
@@ -364,14 +369,8 @@ fun SettingsScreen(
             // App Appearance & Theme Card
             item {
                 val systemDark = isSystemInDarkTheme()
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                FrostedBlurCard(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
                         modifier = Modifier
@@ -405,7 +404,8 @@ fun SettingsScreen(
                                 Text(
                                     text = "Theme & Night Mode",
                                     style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
                                     text = when (themeMode) {
@@ -435,7 +435,8 @@ fun SettingsScreen(
                                 Text(
                                     text = "Auto Schedule",
                                     style = MaterialTheme.typography.bodyMedium,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
                                     text = "Automatically toggle light/dark based on OS night settings",
@@ -463,7 +464,8 @@ fun SettingsScreen(
                         Text(
                             text = "Theme Mode Selection:",
                             style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.height(6.dp))
 
@@ -483,7 +485,7 @@ fun SettingsScreen(
                                     onClick = { onThemeModeChanged(mode) },
                                     shape = RoundedCornerShape(10.dp),
                                     color = if (isSelected) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.surfaceVariant,
-                                    contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
+                                    contentColor = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(40.dp)
@@ -498,13 +500,15 @@ fun SettingsScreen(
                                                     ThemeMode.DARK -> Icons.Default.DarkMode
                                                 },
                                                 contentDescription = null,
+                                                tint = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface,
                                                 modifier = Modifier.size(16.dp)
                                             )
                                             Spacer(modifier = Modifier.width(4.dp))
                                             Text(
                                                 text = label,
                                                 fontWeight = FontWeight.Bold,
-                                                fontSize = 11.sp
+                                                fontSize = 11.sp,
+                                                color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface
                                             )
                                         }
                                     }
@@ -517,14 +521,8 @@ fun SettingsScreen(
 
             // Create New Sprint Quick Action
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                FrostedBlurCard(
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
                         modifier = Modifier
@@ -556,7 +554,8 @@ fun SettingsScreen(
                                 Text(
                                     text = "Start New Sprint",
                                     style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
                                     text = "Create next sprint cycle for tracking",

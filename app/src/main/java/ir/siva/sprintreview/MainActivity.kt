@@ -21,6 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ir.siva.sprintreview.data.database.AppDatabase
 import ir.siva.sprintreview.data.repository.CodeReviewRepository
+import ir.siva.sprintreview.ui.components.AbstractGradientBackground
 import ir.siva.sprintreview.ui.components.FloatingBottomNavigation
 import ir.siva.sprintreview.ui.screens.MainDashboardScreen
 import ir.siva.sprintreview.ui.screens.SettingsScreen
@@ -48,11 +49,10 @@ class MainActivity : ComponentActivity() {
                 val viewModel: CodeReviewViewModel = viewModel(factory = factory)
                 val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
-                ) {
+                AbstractGradientBackground {
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
                     when (currentRoute) {
                         "dashboard" -> MainDashboardScreen(
                             viewModel = viewModel,
@@ -84,6 +84,7 @@ class MainActivity : ComponentActivity() {
                             .windowInsetsPadding(WindowInsets.navigationBars)
                     )
                 }
+            }
             }
         }
     }
