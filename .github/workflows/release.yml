@@ -64,6 +64,7 @@ jobs:
             🚀 Release APK Built Successfully!
             Repository: ${{ github.repository }}
             Branch/Tag: ${{ github.ref_name }}
+            Commit: ${{ github.event.head_commit.message }}
 
   build-debug:
     name: Build Signed Debug APK
@@ -119,3 +120,4 @@ jobs:
             🛠️ Debug APK Built Successfully!
             Repository: ${{ github.repository }}
             Branch/Tag: ${{ github.ref_name }}
+            Commit: ${{ github.event.head_commit.message }}
