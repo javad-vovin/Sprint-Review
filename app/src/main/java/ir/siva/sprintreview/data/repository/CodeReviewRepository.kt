@@ -71,7 +71,6 @@ class CodeReviewRepository(
     }
 
     suspend fun updateSprintName(sprintId: Long, newName: String) {
-        val sprintFlow = sprintDao.getSprintById(sprintId)
-        // Simple update call
+        sprintDao.updateSprintName(sprintId, newName)
     }
 }

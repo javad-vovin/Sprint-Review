@@ -34,4 +34,7 @@ interface SprintDao {
 
     @Query("UPDATE sprints SET isCurrent = 1 WHERE id = :sprintId")
     suspend fun setCurrentSprint(sprintId: Long)
+
+    @Query("UPDATE sprints SET name = :newName WHERE id = :sprintId")
+    suspend fun updateSprintName(sprintId: Long, newName: String)
 }

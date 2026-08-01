@@ -82,7 +82,7 @@ fun SettingsScreen(
     onToggleDarkMode: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    var sprintName by remember(uiState.selectedSprint) {
+    var sprintName by remember(uiState.selectedSprint?.id, uiState.selectedSprint?.name) {
         mutableStateOf(uiState.selectedSprint?.name ?: "")
     }
     var selectedStartDay by remember(uiState.sprintStartDay) {
