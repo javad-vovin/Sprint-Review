@@ -7,7 +7,6 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +17,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
 fun AbstractGradientBackground(
@@ -26,66 +27,80 @@ fun AbstractGradientBackground(
 ) {
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     
-    // Smooth infinite animation for abstract floating gradient shapes
+    // Smooth infinite continuous animation for abstract floating gradient background
     val infiniteTransition = rememberInfiniteTransition(label = "gradient_animation")
-    val animOffset1 by infiniteTransition.animateFloat(
+    
+    // Continuous 360 degree rotation phase for gradient angle
+    val phase1 by infiniteTransition.animateFloat(
         initialValue = 0f,
-        targetValue = 1f,
+        targetValue = (2 * Math.PI).toFloat(),
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 14000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
+            animation = tween(durationMillis = 22000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         ),
-        label = "blob1"
+        label = "phase1"
     )
-    val animOffset2 by infiniteTransition.animateFloat(
-        initialValue = 1f,
-        targetValue = 0f,
+
+    val phase2 by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = (2 * Math.PI).toFloat(),
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 18000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
+            animation = tween(durationMillis = 16000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         ),
-        label = "blob2"
+        label = "phase2"
     )
 
     // Colors tailored for abstract atmospheric feel using current theme scheme
     val primaryColor = MaterialTheme.colorScheme.primary
     val secondaryColor = MaterialTheme.colorScheme.secondary
 
-    val blob1Color = primaryColor.copy(alpha = if (isDark) 0.35f else 0.22f)
-    val blob2Color = secondaryColor.copy(alpha = if (isDark) 0.30f else 0.18f)
-    val blob3Color = Color(0xFF8B5CF6).copy(alpha = if (isDark) 0.25f else 0.14f) // Soft purple
-    val blob4Color = Color(0xFF06B6D4).copy(alpha = if (isDark) 0.25f else 0.16f) // Soft cyan
+    val blob1Color = primaryColor.copy(alpha = if (isDark) 0.38f else 0.25f)
+    val blob2Color = secondaryColor.copy(alpha = if (isDark) 0.32f else 0.20f)
+    val blob3Color = Color(0xFF8B5CF6).copy(alpha = if (isDark) 0.28f else 0.16f) // Soft purple
+    val blob4Color = Color(0xFF06B6D4).copy(alpha = if (isDark) 0.28f else 0.18f) // Soft cyan
 
     val bgGradient = if (isDark) {
         listOf(
             MaterialTheme.colorScheme.background,
-            Color(0xFF0B1124),
-            Color(0xFF060913)
+            Color(0xFF0D1427),
+            Color(0xFF070B16)
         )
     } else {
         listOf(
             MaterialTheme.colorScheme.background,
-            Color(0xFFF1F5F9),
-            Color(0xFFE2E8F0)
+            Color(0xFFEEF2FF),
+            Color(0xFFE0E7FF)
         )
     }
 
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(brush = Brush.verticalGradient(colors = bgGradient))
+        modifier = modifier.fillMaxSize()
     ) {
-        // Abstract floating radial gradient Orbs
         Canvas(modifier = Modifier.fillMaxSize()) {
             val width = size.width
             val height = size.height
 
-            // Orb 1: Top Left -> Floating towards Top Right
-            val center1 = Offset(
-                x = width * (0.15f + 0.35f * animOffset1),
-                y = height * (0.10f + 0.20f * animOffset2)
+            // 1. Moving base linear gradient with dynamic start & end points rotating gracefully
+            val startX = width * (0.5f + 0.5f * cos(phase1))
+            val startY = height * (0.5f + 0.5f * sin(phase1))
+            val endX = width * (0.5f - 0.5f * cos(phase1))
+            val endY = height * (0.5f - 0.5f * sin(phase1))
+
+            drawRect(
+                brush = Brush.linearGradient(
+                    colors = bgGradient,
+                    start = Offset(startX, startY),
+                    end = Offset(endX, endY)
+                )
             )
-            val radius1 = width.coerceAtLeast(height) * 0.55f
+
+            // 2. Orb 1: Floating top-left to top-right path
+            val center1 = Offset(
+                x = width * (0.35f + 0.25f * cos(phase1)),
+                y = height * (0.25f + 0.15f * sin(phase2))
+            )
+            val radius1 = width.coerceAtLeast(height) * (0.50f + 0.08f * sin(phase1))
             drawCircle(
                 brush = Brush.radialGradient(
                     colors = listOf(blob1Color, Color.Transparent),
@@ -96,12 +111,12 @@ fun AbstractGradientBackground(
                 radius = radius1
             )
 
-            // Orb 2: Bottom Right -> Floating towards Center
+            // 3. Orb 2: Floating bottom-right orbit
             val center2 = Offset(
-                x = width * (0.85f - 0.30f * animOffset2),
-                y = height * (0.75f - 0.25f * animOffset1)
+                x = width * (0.70f + 0.20f * sin(phase1)),
+                y = height * (0.70f + 0.18f * cos(phase2))
             )
-            val radius2 = width.coerceAtLeast(height) * 0.60f
+            val radius2 = width.coerceAtLeast(height) * (0.55f + 0.06f * cos(phase1))
             drawCircle(
                 brush = Brush.radialGradient(
                     colors = listOf(blob2Color, Color.Transparent),
@@ -112,12 +127,12 @@ fun AbstractGradientBackground(
                 radius = radius2
             )
 
-            // Orb 3: Center Left Purple Accent
+            // 4. Orb 3: Floating middle-left purple accent
             val center3 = Offset(
-                x = width * (0.10f + 0.25f * animOffset2),
-                y = height * (0.60f + 0.25f * animOffset1)
+                x = width * (0.20f + 0.22f * sin(phase2)),
+                y = height * (0.55f + 0.20f * cos(phase1))
             )
-            val radius3 = width.coerceAtLeast(height) * 0.45f
+            val radius3 = width.coerceAtLeast(height) * (0.42f + 0.05f * sin(phase2))
             drawCircle(
                 brush = Brush.radialGradient(
                     colors = listOf(blob3Color, Color.Transparent),
@@ -128,12 +143,12 @@ fun AbstractGradientBackground(
                 radius = radius3
             )
 
-            // Orb 4: Top Right Cyan Glow
+            // 5. Orb 4: Floating top-right cyan accent
             val center4 = Offset(
-                x = width * (0.80f - 0.20f * animOffset1),
-                y = height * (0.20f + 0.15f * animOffset2)
+                x = width * (0.75f - 0.18f * cos(phase2)),
+                y = height * (0.25f + 0.16f * sin(phase1))
             )
-            val radius4 = width.coerceAtLeast(height) * 0.40f
+            val radius4 = width.coerceAtLeast(height) * (0.38f + 0.07f * cos(phase2))
             drawCircle(
                 brush = Brush.radialGradient(
                     colors = listOf(blob4Color, Color.Transparent),
