@@ -417,7 +417,7 @@ fun SettingsScreen(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "Auto System Schedule",
+                                    text = "Auto Schedule",
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -456,7 +456,7 @@ fun SettingsScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             val options = listOf(
-                                ThemeMode.SYSTEM to "Auto System",
+                                ThemeMode.SYSTEM to "Auto",
                                 ThemeMode.LIGHT to "Light",
                                 ThemeMode.DARK to "Dark"
                             )

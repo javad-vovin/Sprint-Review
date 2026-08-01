@@ -155,19 +155,6 @@ fun MainDashboardScreen(
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
-
-                        TextButton(
-                            onClick = onNavigateToTeamManagement,
-                            modifier = Modifier.testTag("btn_manage_team_members_header")
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Group,
-                                contentDescription = null,
-                                modifier = Modifier.size(16.dp)
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text("Manage Team", fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                        }
                     }
                 }
 
