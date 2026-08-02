@@ -58,7 +58,7 @@ fun FloatingBottomNavigation(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 12.dp)
+            .padding(horizontal = 24.dp)
             .height(64.dp)
             .clip(shape)
     ) {
