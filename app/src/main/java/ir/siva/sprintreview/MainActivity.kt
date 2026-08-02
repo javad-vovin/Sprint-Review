@@ -37,12 +37,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        val prefs = getSharedPreferences("app_settings", MODE_PRIVATE)
+        val savedThemeModeName = prefs.getString("theme_mode", ThemeMode.SYSTEM.name)
+        val initialThemeMode = try {
+            ThemeMode.valueOf(savedThemeModeName ?: ThemeMode.SYSTEM.name)
+        } catch (e: Exception) {
+            ThemeMode.SYSTEM
+        }
+
         val database = AppDatabase.getDatabase(applicationContext)
         val repository = CodeReviewRepository(database.sprintDao(), database.reviewRecordDao())
         val factory = CodeReviewViewModelFactory(repository)
 
         setContent {
-            var themeMode by remember { mutableStateOf(ThemeMode.SYSTEM) }
+            var themeMode by remember { mutableStateOf(initialThemeMode) }
             var currentRoute by remember { mutableStateOf("dashboard") }
 
             SprintReviewTheme(themeMode = themeMode) {
@@ -72,7 +80,10 @@ class MainActivity : ComponentActivity() {
                             viewModel = viewModel,
                             uiState = uiState,
                             themeMode = themeMode,
-                            onThemeModeChanged = { newMode -> themeMode = newMode }
+                            onThemeModeChanged = { newMode ->
+                                themeMode = newMode
+                                prefs.edit().putString("theme_mode", newMode.name).apply()
+                            }
                         )
                     }
 
